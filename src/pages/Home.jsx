@@ -7,14 +7,14 @@ function Home() {
       <section className="bg-white p-8 rounded-lg shadow-lg text-center">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">Welcome to Society Name</h1>
         <p className="text-gray-600">Your trusted community management platform</p>
-        
-        {/* Society Building Image */}
-        <img 
-          src="https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.abc.net.au%2Fnews%2F2017-02-28%2Fsirius-buildings-architect-wants-more-inclusive-sydney%2F8309190&psig=AOvVaw1tPw99UpVwl9xnT55mr1ks&ust=1743668479172000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJibupX3uIwDFQAAAAAdAAAAABAE"  // Replace this with the actual URL
-          alt="Society Building" 
-          className="w-full max-h-80 object-cover mt-4 rounded-lg shadow-md"
-        />
       </section>
+
+      {/* Full-Width Society Building Image */}
+      <img 
+        src="https://live-production.wcms.abc-cdn.net.au/53fd9940c571f5366d6ffe53cc6a2dbc?impolicy=wcms_crop_resize&cropH=608&cropW=1080&xPos=0&yPos=55&width=862&height=485"  // Replace with actual URL
+        alt="Society Building" 
+        className="w-screen h-80 object-cover"
+      />
 
       {/* Quick Actions */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
