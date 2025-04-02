@@ -13,7 +13,7 @@ function Home() {
       <img 
         src="https://live-production.wcms.abc-cdn.net.au/53fd9940c571f5366d6ffe53cc6a2dbc?impolicy=wcms_crop_resize&cropH=608&cropW=1080&xPos=0&yPos=55&width=862&height=485"  // Replace with actual URL
         alt="Society Building" 
-        className="w-screen h-80 object-cover"
+        className="w-screen h-auto object-contain"
       />
 
       {/* Quick Actions */}
