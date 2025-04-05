@@ -7,7 +7,7 @@ function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <p>Email: info@society.com</p>
+            <p>Email: info@unimark.com</p>
             <p>Phone: (123) 456-7890</p>
             <p>Address: 123 Society Street</p>
           </div>

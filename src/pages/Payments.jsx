@@ -1,29 +1,6 @@
 import React from 'react';
 
 function Payments() {
-  const recentPayments = [
-    {
-      date: "2024-03-15",
-      amount: "₹5000",
-      type: "Maintenance",
-      status: "Paid",
-      transactionId: "TXN123456"
-    },
-    {
-      date: "2024-03-01",
-      amount: "₹2000",
-      type: "Water Bill",
-      status: "Paid",
-      transactionId: "TXN123455"
-    },
-    {
-      date: "2024-02-15",
-      amount: "₹5000",
-      type: "Maintenance",
-      status: "Paid",
-      transactionId: "TXN123454"
-    }
-  ];
 
   return (
     <div className="space-y-8">
@@ -51,43 +28,13 @@ function Payments() {
       </section>
 
       <section className="bg-white p-6 rounded-lg shadow">
-        <h2 className="text-2xl font-bold mb-6">Recent Payments</h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full">
-            <thead>
-              <tr className="bg-gray-50">
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Type</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Transaction ID</th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {recentPayments.map((payment, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payment.date}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payment.type}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payment.amount}</td>
-                  <td className="px-6 py-4 whitespace-nowrap">
-                    <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                      {payment.status}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{payment.transactionId}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section className="bg-white p-6 rounded-lg shadow">
         <h2 className="text-2xl font-bold mb-4">Payment Guidelines</h2>
         <div className="space-y-4">
           <div className="border-b pb-4">
             <h3 className="font-semibold">Due Dates</h3>
-            <p className="text-gray-600">Maintenance charges are due by the 5th of every month</p>
+            <p className="text-gray-600">
+              Maintenance charges are due by the 5th of every month (see Maintenance Calendar below). Read the maintenance charges PDF below for a detailed breakdown of charges.
+            </p>
           </div>
           <div className="border-b pb-4">
             <h3 className="font-semibold">Late Payment Charges</h3>
@@ -99,6 +46,38 @@ function Payments() {
           </div>
         </div>
       </section>
+
+      {/* PDF Display Section */}
+      <section className="bg-white p-6 rounded-lg shadow">
+        <h2 className="text-2xl font-bold mb-4">Important Documents</h2>
+        <p className="text-gray-600 mb-4">View the latest maintenance charges and payment calendar below.</p>
+
+        {/* Side-by-side PDF display */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Maintenance Charges PDF */}
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Maintenance Charge</h3>
+            <iframe
+              src="/Maintenance Charge.pdf"
+              width="100%"
+              height="500px"
+              className="border rounded-lg"
+            ></iframe>
+          </div>
+
+          {/* Payment Calendar PDF */}
+          <div>
+            <h3 className="text-xl font-semibold mb-2">Payment Calendar</h3>
+            <iframe
+              src="/Payment Calendar.pdf"
+              width="100%"
+              height="500px"
+              className="border rounded-lg"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
     </div>
   );
 }

@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
 
+const getMaintenanceRequests = async () => {
+  const response = await fetch('/api/maintenance_requests');
+  const requests = await response.json();
+  console.log(requests); // Will show list of maintenance requests
+};
+
 function Maintenance() {
   const [formData, setFormData] = useState({
     title: '',

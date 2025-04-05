@@ -8,6 +8,17 @@ import Payments from './pages/Payments';
 import Maintenance from './pages/Maintenance';
 import Meetings from './pages/Meetings';
 
+const verifyUser = async () => {
+  const token = 'your-auth-token'; // Get this from your auth system
+  const response = await fetch('/api/auth-verify', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  const authStatus = await response.json();
+  console.log(authStatus); // Will show authentication status
+};
+
 function App() {
   return (
     <Router>

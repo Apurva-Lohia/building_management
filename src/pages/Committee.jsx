@@ -5,32 +5,37 @@ function Committee() {
     {
       name: "John Doe",
       role: "President",
-      contact: "john.doe@society.com",
-      term: "2023-2025"
+      contact: "john.doe@unimark.com",
+      term: "2023-2025",
+      image: "https://audacityaustralia.com.au/wp-content/uploads/2021/02/team-1.jpg"
     },
     {
       name: "Jane Smith",
       role: "Vice President",
-      contact: "jane.smith@society.com",
-      term: "2023-2025"
+      contact: "jane.smith@unimark.com",
+      term: "2023-2025",
+      image: "https://media.licdn.com/dms/image/v2/D4D03AQH1ZPN8SiqXPw/profile-displayphoto-shrink_200_200/profile-displayphoto-shrink_200_200/0/1657171985504?e=2147483647&v=beta&t=ZmVuUHNmWtj86F_WlHqJqKf1TgTQ6H8YMizpxLljpjw"
     },
     {
       name: "Mike Johnson",
       role: "Treasurer",
-      contact: "mike.j@society.com",
-      term: "2023-2025"
+      contact: "mike.johnson@unimark.com",
+      term: "2023-2025",
+      image: "https://st2.depositphotos.com/3528377/6241/i/450/depositphotos_62417217-stock-photo-smiling-young-man.jpg"
     },
     {
       name: "Sarah Williams",
       role: "Secretary",
-      contact: "sarah.w@society.com",
-      term: "2023-2025"
+      contact: "sarah.williams@unimark.com",
+      term: "2023-2025",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvl-3s27sN3QHbWiuRzijVHVJRcZevBK56VQ&s"
     },
     {
       name: "David Brown",
       role: "Maintenance Head",
-      contact: "david.b@society.com",
-      term: "2023-2025"
+      contact: "david.brown@unimark.com",
+      term: "2023-2025",
+      image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-P2DsWCMv-3Y2P6YjJ1GrDpyXKYw3Tc2aUg&s"
     }
   ];
 
@@ -45,7 +50,8 @@ function Committee() {
         <h2 className="text-2xl font-bold mb-6">Current Committee</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {committeeMembers.map((member, index) => (
-            <div key={index} className="border rounded-lg p-6 hover:shadow-md transition-shadow">
+            <div key={index} className="border rounded-lg p-6 hover:shadow-md transition-shadow text-center">
+              <img src={member.image} alt={member.name} className="w-24 h-24 mx-auto rounded-full mb-4 object-cover" />
               <h3 className="text-xl font-semibold mb-2">{member.name}</h3>
               <p className="text-blue-600 font-medium mb-2">{member.role}</p>
               <p className="text-gray-600 mb-2">Term: {member.term}</p>

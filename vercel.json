@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "buildCommand": "npm run build",
+  "regions": ["syd1"],
+  "crons": [
+    {
+      "path": "/api/scheduled-task",
+      "schedule": "0 0 * * *"
+    }
+  ]
+}
