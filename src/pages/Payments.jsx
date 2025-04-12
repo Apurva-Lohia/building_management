@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 function Payments() {
   useEffect(() => {
-    console.log('Payment API Key:', process.env.NEXT_PUBLIC_PAYMENT_API_KEY);
+    console.log('Payment API Key:', import.meta.env.VITE_PAYMENT_API_KEY)
   }, []);
 
   return (
