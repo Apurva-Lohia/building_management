@@ -11,7 +11,7 @@
   "builds": [
     {
       "src": "php/*.php",
-      "use": "vercel-community/php@0.4.0"
+      "use": "github:vercel-community/php"
     }
   ],
   "routes": [
