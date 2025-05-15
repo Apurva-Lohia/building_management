@@ -8,16 +8,9 @@
       "schedule": "0 0 * * *"
     }
   ],
-  "builds": [
-    {
-      "src": "php/*.php",
-      "use": "github:vercel-community/php"
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.3"
     }
-  ],
-  "routes": [
-    {
-      "src": "/php/(.*)",
-      "dest": "/php/$1"
-    }
-  ]
+  }
 }
