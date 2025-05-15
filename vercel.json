@@ -7,5 +7,17 @@
       "path": "/api/scheduled-task",
       "schedule": "0 0 * * *"
     }
+  ],
+  "builds": [
+    {
+      "src": "php/*.php",
+      "use": "vercel-community/php@0.4.0"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/php/(.*)",
+      "dest": "/php/$1"
+    }
   ]
 }
