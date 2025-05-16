@@ -7,6 +7,7 @@ import Committee from './pages/Committee';
 import Payments from './pages/Payments';
 import Maintenance from './pages/Maintenance';
 import Meetings from './pages/Meetings';
+import Documents from './pages/Documents';
 
 const verifyUser = async () => {
   const token = 'your-auth-token'; // Get this from your auth system
@@ -31,6 +32,7 @@ function App() {
             <Route path="/payments" element={<Payments />} />
             <Route path="/maintenance" element={<Maintenance />} />
             <Route path="/meetings" element={<Meetings />} />
+            <Route path="/documents" element={<Documents />} />
           </Routes>
         </main>
         <Footer />
