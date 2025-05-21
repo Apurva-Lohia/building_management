@@ -12,8 +12,8 @@ export default async function handler(req, res) {
 
   try {
     await mongoClient.connect();
-    const db = mongoClient.db('buildingManagement');
-    const collection = db.collection('levy_notices');
+    const db = mongoClient.db('levyDB');
+    const collection = db.collection('notices');
 
     // Get all unit owners with entitlements
     const unitOwners = await sql`
