@@ -133,7 +133,8 @@ import { createClient } from '@supabase/supabase-js';
 // Initialize Supabase client
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
-const supabase = createClient(supabaseUrl, supabaseKey);
+const supabasedbKey = import.meta.env.SUPABASE_DB_URL;
+const supabase = createClient(supabaseUrl, supabaseKey, supabasedbKey);
 
 function Home() {
   const [buildingStatus, setBuildingStatus] = useState(null);
