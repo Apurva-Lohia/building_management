@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { supabase } from '../supabase';
 
 function Home() {
   const [buildingStatus, setBuildingStatus] = useState(null);
@@ -121,6 +122,12 @@ function Home() {
       </section>
     </div>
   );
+  
+async function testFetch() {
+  const { data, error } = await supabase.from('your_table').select('*');
+  console.log(data, error);
+}
+
 }
 
 export default Home;
