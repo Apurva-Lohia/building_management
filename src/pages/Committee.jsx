@@ -63,6 +63,7 @@
 // export default Committee;
 
 import React, { useEffect, useState } from 'react';
+import { Link} from 'react-router-dom';
 
 function Committee() {
   const [members, setMembers] = useState([]);
@@ -73,6 +74,8 @@ function Committee() {
       .then(data => setMembers(data))
       .catch(err => console.error('Error loading committee:', err));
   }, []);
+
+
 
   return (
     <div className="space-y-8">
@@ -101,15 +104,12 @@ function Committee() {
                   <p className="text-sm text-gray-500 mb-2">
                     Entitlements: {member.unit_entitlements}
                   </p>
-                  <button
-                    onClick={async () => {
-                      await fetch('/api/generate_levy', { method: 'POST' });
-                      window.location.href = '/levy';
-                    }}
-                    className="mt-2 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
-                  >
-                    View Levy Notice
-                  </button>
+                    <Link
+                      to="/levy"
+                      className="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                    >
+                      View Notices
+                    </Link>
                 </>
               )}
             </div>
