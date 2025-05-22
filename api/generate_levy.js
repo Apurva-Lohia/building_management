@@ -50,7 +50,7 @@ import { Client } from 'pg';
 const client = new Client({
   connectionString: process.env.SUPABASE_DB_URL,
   ssl: {
-    rejectUnauthorized: false, // Required for Supabase SSL
+    rejectUnauthorized: false,
   },
 });
 
@@ -62,18 +62,17 @@ export default async function handler(req, res) {
   try {
     await client.connect();
 
-    // Example hardcoded data
     const levyNotices = [
       {
         owner_name: 'Anita Mehta',
-        unit_entitlements: 120,
+        entitlements: 120, // Changed from unit_entitlements
         amount: 5714.29,
         due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
         status: 'unpaid',
       },
       {
         owner_name: 'Ravi Sharma',
-        unit_entitlements: 90,
+        entitlements: 90, // Changed from unit_entitlements
         amount: 4285.71,
         due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
         status: 'unpaid',
@@ -82,11 +81,11 @@ export default async function handler(req, res) {
 
     for (const notice of levyNotices) {
       await client.query(
-        `INSERT INTO levy_notices (owner_name, unit_entitlements, amount, due_date, status)
-         VALUES ($1, $2, $3, $4, $5)`,
+        `INSERT INTO levy_notices (owner_name, entitlements, amount, due_date, status)
+         VALUES ($1, $2, $3, $4, $5)`, // Changed column name
         [
           notice.owner_name,
-          notice.unit_entitlements,
+          notice.entitlements, // Changed property name
           notice.amount,
           notice.due_date,
           notice.status,
@@ -94,10 +93,10 @@ export default async function handler(req, res) {
       );
     }
 
-    res.status(200).json({ message: 'Levy notices inserted into Supabase!' });
+    res.status(200).json({ message: 'Levy notices inserted successfully!' });
   } catch (err) {
     console.error('Insert error:', err);
-    res.status(500).json({ error: 'Failed to insert data' });
+    res.status(500).json({ error: 'Failed to insert data', details: err.message });
   } finally {
     await client.end();
   }
