@@ -44,7 +44,7 @@
 //   }
 // }
 
-// /api/insert_levy.js
+/api/insert_levy.js
 import { Client } from 'pg';
 
 const client = new Client({
@@ -68,6 +68,7 @@ export default async function handler(req, res) {
         entitlements: 120, // Changed from unit_entitlements
         amount: 5714.29,
         due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+        created_at: new Date().toISOString(),
         status: 'unpaid',
       },
       {
@@ -75,6 +76,7 @@ export default async function handler(req, res) {
         entitlements: 90, // Changed from unit_entitlements
         amount: 4285.71,
         due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+        created_at: new Date().toISOString(),
         status: 'unpaid',
       },
     ];
@@ -88,6 +90,7 @@ export default async function handler(req, res) {
           notice.entitlements, // Changed property name
           notice.amount,
           notice.due_date,
+          notice.created_at,
           notice.status,
         ]
       );
