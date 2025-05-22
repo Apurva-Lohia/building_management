@@ -44,50 +44,105 @@
 //   }
 // }
 
-/api/insert_levy.js
-import { Client } from 'pg';
+// /api/insert_levy.js
+// import { Client } from 'pg';
 
-const client = new Client({
+// const client = new Client({
+//   connectionString: process.env.SUPABASE_DB_URL,
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
+
+// export default async function handler(req, res) {
+//   if (req.method !== 'POST') {
+//     return res.status(405).end('Method Not Allowed');
+//   }
+
+//   try {
+//     await client.connect();
+
+//     const levyNotices = [
+//       {
+//         owner_name: 'Anita Mehta',
+//         entitlements: 120, // Changed from unit_entitlements
+//         amount: 5714.29,
+//         due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+//         created_at: new Date().toISOString(),
+//         status: 'unpaid',
+//       },
+//       {
+//         owner_name: 'Ravi Sharma',
+//         entitlements: 90, // Changed from unit_entitlements
+//         amount: 4285.71,
+//         due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
+//         created_at: new Date().toISOString(),
+//         status: 'unpaid',
+//       },
+//     ];
+
+//     for (const notice of levyNotices) {
+//       await client.query(
+//         `INSERT INTO levy_notices (owner_name, entitlements, amount, due_date, status)
+//          VALUES ($1, $2, $3, $4, $5)`, // Changed column name
+//         [
+//           notice.owner_name,
+//           notice.entitlements, // Changed property name
+//           notice.amount,
+//           notice.due_date,
+//           notice.created_at,
+//           notice.status,
+//         ]
+//       );
+//     }
+
+//     res.status(200).json({ message: 'Levy notices inserted successfully!' });
+//   } catch (err) {
+//     console.error('Insert error:', err);
+//     res.status(500).json({ error: 'Failed to insert data', details: err.message });
+//   } finally {
+//     await client.end();
+//   }
+// }
+
+import { Pool } from 'pg';
+
+const pool = new Pool({
   connectionString: process.env.SUPABASE_DB_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: { rejectUnauthorized: false },
 });
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).end('Method Not Allowed');
-  }
+  if (req.method !== 'POST') return res.status(405).end('Method Not Allowed');
 
   try {
-    await client.connect();
-
-    const levyNotices = [
+    const levyData = [
       {
         owner_name: 'Anita Mehta',
-        entitlements: 120, // Changed from unit_entitlements
-        amount: 5714.29,
-        due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
-        created_at: new Date().toISOString(),
+        entitlements: 120,
+        amount: 6000,
+        due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // +30 days
+        created_at: new Date(),
         status: 'unpaid',
       },
       {
         owner_name: 'Ravi Sharma',
-        entitlements: 90, // Changed from unit_entitlements
-        amount: 4285.71,
-        due_date: new Date(new Date().setMonth(new Date().getMonth() + 1)),
-        created_at: new Date().toISOString(),
+        entitlements: 80,
+        amount: 4000,
+        due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        created_at: new Date(),
         status: 'unpaid',
       },
     ];
 
-    for (const notice of levyNotices) {
+    const client = await pool.connect();
+    for (const notice of levyData) {
       await client.query(
-        `INSERT INTO levy_notices (owner_name, entitlements, amount, due_date, status)
-         VALUES ($1, $2, $3, $4, $5)`, // Changed column name
+        `INSERT INTO levy_notices (owner_name, entitlements, amount, due_date, created_at, status)
+         VALUES ($1, $2, $3, $4, $5, $6)`,
         [
           notice.owner_name,
-          notice.entitlements, // Changed property name
+          notice.entitlements,
           notice.amount,
           notice.due_date,
           notice.created_at,
@@ -96,11 +151,10 @@ export default async function handler(req, res) {
       );
     }
 
-    res.status(200).json({ message: 'Levy notices inserted successfully!' });
-  } catch (err) {
-    console.error('Insert error:', err);
-    res.status(500).json({ error: 'Failed to insert data', details: err.message });
-  } finally {
-    await client.end();
+    client.release();
+    res.status(200).json({ message: 'Inserted levy notices into Supabase.' });
+  } catch (error) {
+    console.error('Insert Error:', error);
+    res.status(500).json({ error: 'Failed to insert levy notices.' });
   }
 }
