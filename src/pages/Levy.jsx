@@ -28,10 +28,10 @@
 //         <tbody>
 //           {notices.map((n, idx) => (
 //             <tr key={idx}>
-//               <td className="border px-4 py-2">{n.ownerName}</td>
+//               <td className="border px-4 py-2">{n.owner_name}</td>
 //               <td className="border px-4 py-2">{n.entitlements}</td>
 //               <td className="border px-4 py-2">${n.amount}</td>
-//               <td className="border px-4 py-2">{new Date(n.dueDate).toLocaleDateString()}</td>
+//               <td className="border px-4 py-2">{new Date(n.due_date).toLocaleDateString()}</td>
 //               <td className="border px-4 py-2">{n.status}</td>
 //             </tr>
 //           ))}
@@ -49,12 +49,27 @@ import React, { useEffect, useState } from 'react';
 function Levy() {
   const [notices, setNotices] = useState([]);
 
+  const fetchNotices = async () => {
+    const res = await fetch('/api/levy_notices');
+    const data = await res.json();
+    setNotices(data);
+  };
+
+  const markAsPaid = async (id) => {
+    const res = await fetch('/api/levy_notices', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id }),
+    });
+
+    if (res.ok) {
+      fetchNotices(); // Refresh notices
+    } else {
+      alert('Failed to update status');
+    }
+  };
+
   useEffect(() => {
-    const fetchNotices = async () => {
-      const res = await fetch('/api/levy_notices');
-      const data = await res.json();
-      setNotices(data);
-    };
     fetchNotices();
   }, []);
 
@@ -69,6 +84,7 @@ function Levy() {
             <th className="border px-4 py-2">Amount</th>
             <th className="border px-4 py-2">Due Date</th>
             <th className="border px-4 py-2">Status</th>
+            <th className="border px-4 py-2">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -78,7 +94,17 @@ function Levy() {
               <td className="border px-4 py-2">{n.entitlements}</td>
               <td className="border px-4 py-2">${n.amount}</td>
               <td className="border px-4 py-2">{new Date(n.due_date).toLocaleDateString()}</td>
-              <td className="border px-4 py-2">{n.status}</td>
+              <td className="border px-4 py-2 capitalize">{n.status}</td>
+              <td className="border px-4 py-2">
+                {n.status !== 'paid' && (
+                  <button
+                    onClick={() => markAsPaid(n.id)}
+                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+                  >
+                    Mark as Paid
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
