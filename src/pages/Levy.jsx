@@ -3,12 +3,27 @@
 // function Levy() {
 //   const [notices, setNotices] = useState([]);
 
+//   const fetchNotices = async () => {
+//     const res = await fetch('/api/levy_notices');
+//     const data = await res.json();
+//     setNotices(data);
+//   };
+
+//   const markAsPaid = async (id) => {
+//     const res = await fetch('/api/levy_notices', {
+//       method: 'PATCH',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({ id }),
+//     });
+
+//     if (res.ok) {
+//       fetchNotices(); // Refresh notices
+//     } else {
+//       alert('Failed to update status');
+//     }
+//   };
+
 //   useEffect(() => {
-//     const fetchNotices = async () => {
-//       const res = await fetch('/api/levy_notices');
-//       const data = await res.json();
-//       setNotices(data);
-//     };
 //     fetchNotices();
 //   }, []);
 
@@ -23,6 +38,7 @@
 //             <th className="border px-4 py-2">Amount</th>
 //             <th className="border px-4 py-2">Due Date</th>
 //             <th className="border px-4 py-2">Status</th>
+//             <th className="border px-4 py-2">Action</th>
 //           </tr>
 //         </thead>
 //         <tbody>
@@ -32,7 +48,17 @@
 //               <td className="border px-4 py-2">{n.entitlements}</td>
 //               <td className="border px-4 py-2">${n.amount}</td>
 //               <td className="border px-4 py-2">{new Date(n.due_date).toLocaleDateString()}</td>
-//               <td className="border px-4 py-2">{n.status}</td>
+//               <td className="border px-4 py-2 capitalize">{n.status}</td>
+//               <td className="border px-4 py-2">
+//                 {n.status !== 'paid' && (
+//                   <button
+//                     onClick={() => markAsPaid(n.id)}
+//                     className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
+//                   >
+//                     Mark as Paid
+//                   </button>
+//                 )}
+//               </td>
 //             </tr>
 //           ))}
 //         </tbody>
@@ -55,11 +81,13 @@ function Levy() {
     setNotices(data);
   };
 
-  const markAsPaid = async (id) => {
+  const toggleStatus = async (id, currentStatus) => {
+    const newStatus = currentStatus === 'paid' ? 'unpaid' : 'paid'; // Toggle the status
+
     const res = await fetch('/api/levy_notices', {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id }),
+      body: JSON.stringify({ id, status: newStatus }),
     });
 
     if (res.ok) {
@@ -96,14 +124,14 @@ function Levy() {
               <td className="border px-4 py-2">{new Date(n.due_date).toLocaleDateString()}</td>
               <td className="border px-4 py-2 capitalize">{n.status}</td>
               <td className="border px-4 py-2">
-                {n.status !== 'paid' && (
-                  <button
-                    onClick={() => markAsPaid(n.id)}
-                    className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700"
-                  >
-                    Mark as Paid
-                  </button>
-                )}
+                <button
+                  onClick={() => toggleStatus(n.id, n.status)}
+                  className={`${
+                    n.status === 'paid' ? 'bg-red-600' : 'bg-green-600'
+                  } text-white px-3 py-1 rounded hover:bg-${n.status === 'paid' ? 'red' : 'green'}-700`}
+                >
+                  Mark as {n.status === 'paid' ? 'Unpaid' : 'Paid'}
+                </button>
               </td>
             </tr>
           ))}
