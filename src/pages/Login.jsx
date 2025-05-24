@@ -8,7 +8,7 @@ function Login() {
 
   const handleLogin = () => {
     if (username.trim() !== '') {
-      Cookies.set('username', username, { expires: 7 }); // stored for 7 days
+      Cookies.set('username', username, { expires: 30 }); // stored for 7 days
       navigate('/');
     }
   };
