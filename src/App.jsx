@@ -10,7 +10,7 @@ import Meetings from './pages/Meetings';
 import Documents from './pages/Documents';
 import Login from './pages/Login';
 import Levy from './pages/Levy';
-
+import Budget from './pages/Budget';
 
 const verifyUser = async () => {
   const token = 'your-auth-token'; // Get this from your auth system
@@ -38,6 +38,7 @@ function App() {
             <Route path="/documents" element={<Documents />} />
             <Route path="/login" element={<Login />} />
             <Route path="/levy" element={<Levy />} />
+            <Route path="/budget" element={<Budget />} />
           </Routes>
         </main>
         <Footer />

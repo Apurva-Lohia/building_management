@@ -31,6 +31,7 @@ function Navbar() {
           <Link to="/meetings" className={isActive('/meetings')}>Meetings</Link>
           <Link to="/documents" className={isActive('/documents')}>Documents</Link>
           <Link to="/login" className={isActive('/login')}>Login</Link>
+          <Link to="/budget" className={isActive('/budget')}>Budget Trend</Link>
         </div>
 
         {username && (
