@@ -30,8 +30,8 @@ function Navbar() {
           <Link to="/maintenance" className={isActive('/maintenance')}>Maintenance</Link>
           <Link to="/meetings" className={isActive('/meetings')}>Meetings</Link>
           <Link to="/documents" className={isActive('/documents')}>Documents</Link>
-          <Link to="/login" className={isActive('/login')}>Login</Link>
           <Link to="/budget" className={isActive('/budget')}>Budget Trend</Link>
+          <Link to="/login" className={isActive('/login')}>Login</Link>
         </div>
 
         {username && (
