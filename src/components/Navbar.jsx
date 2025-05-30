@@ -33,8 +33,7 @@ function Navbar() {
           <Link to="/budget" className={isActive('/budget')}>Budget Trend</Link>
           <Link to="/login" className={isActive('/login')}>Login</Link>
         </div>
-
-        {username && (
+          {username && (
           <span className="text-sm text-gray-600 ml-4">Hi, {username}!</span>
         )}
       </div>
